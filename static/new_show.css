@@ -57,10 +57,11 @@ input {
     background-color: white;
     gap: 0;
     padding: var(--size-4) var(--size-8);
-    width: calc(100% - 2em);
+    width: calc(100% - 25em);
     border-radius: var(--radius-3);
     overflow: hidden;
     box-shadow: 0 0.5em 0.5em rgba(128, 128, 128, 0.15);
+    padding-top: 50px;
   }
 }
 .card-form__title {
@@ -91,17 +92,19 @@ input {
   }
 }
 .card-form__label {
+    margin-left: 25%;
   color: #002757;
   display: block;
   margin-bottom: var(--size-1);
   font-size: 1em;
 }
 .card-form__input {
-  display: block;
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: var(--radius-2);
-  padding: 0.7em;
+    margin-left: 25%;
+    display: block;
+    width: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-2);
+    padding: 0.7em;
 }
 .card-form__input:not(.card-form__input:last-child) {
   margin-bottom: 1em;
@@ -149,3 +152,6 @@ input {
 
 
 :focus {outline:none;}
+h2{
+    margin-left: 25%;
+}
