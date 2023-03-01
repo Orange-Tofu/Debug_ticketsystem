@@ -139,3 +139,4 @@ input {
     line-height: 10px;
     padding-bottom: 20px;
 }
+:focus {outline:none;}
