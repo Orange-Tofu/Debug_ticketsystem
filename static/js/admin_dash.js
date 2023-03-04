@@ -29,6 +29,7 @@ for (let i = 0; i < numVenueToPrint; i++) {
 const vcard = document.createElement("div");
 vcard.classList.add("vvcard");
 vcard.innerHTML = `<button class="venueadd_button" id="venueadd_button"><img class="add-venue-img" id="add-venue-img" src="../images/plus_icon.png" alt="Add a new Show"></button>`;
+vcard.setAttribute('id', 'plusBtnvenue');
 // Add the card element to the card container
 venuesContainer.appendChild(vcard);
 
@@ -67,6 +68,7 @@ function createShows(x) {
     const card = document.createElement("div");
     card.classList.add("card");
     card.innerHTML = `<button class="showadd_button" id="showadd_button"><img class="add-show-img" id="add-show-img" src="../images/plus_icon.png" alt="Add a new Show"></button>`;
+    card.setAttribute('id', 'plusBtnshow');
     // Add the card element to the card container
     showsContainer.appendChild(card);
 }
