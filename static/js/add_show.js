@@ -1,36 +1,37 @@
-const myDiv = document.getElementById('venueadd_button');
+const myDivs = document.getElementById('showadd_button');
   // Add a click event listener to the div
-  myDiv.addEventListener('click', function() {
+  myDivs.addEventListener('click', function() {
     // Hide the div by changing its display value to "none"
-    myDiv.style.display = 'none';
+    myDivs.style.display = 'none';
 });
-myDiv.classList.remove('vvcard');
-myDiv.style = '';
+myDivs.classList.remove('scard');
+myDivs.style = '';
 
 
 
 
 
-const parentCard = document.querySelector('#venues-container');
-const addChildBtn = document.querySelector('#venueadd_button');
+const parentCards = document.querySelector('#shows-container');
+const addChildBtns = document.querySelector('#showadd_button');
 
-addChildBtn.addEventListener('click', () => {
-    const vcard = document.createElement("div");
-	vcard.classList.add("vcard");
+addChildBtns.addEventListener('click', () => {
+    const card = document.createElement("div");
+	card.classList.add("card");
 
 	// Add the card data to the element
-	vcard.innerHTML = `
-		<h1>Venue x</h1>
-        <button onclick='createShows()'>Click me</button>
-	`;
+	card.innerHTML = `
+        <h2>Show 1</h2>
+        <p>Timings: 12:20</p>
+        <button class="actions_button" id="actions_button">Actions</button>
+`;
 
 	// Add the card element to the card container
-	parentCard.appendChild(vcard);
-    const vxcard = document.createElement("div");
-vxcard.classList.add("vvcard");
-vxcard.innerHTML = `<button class="venueadd_button" id="venueadd_button"><img class="add-venue-img" id="add-venue-img" src="../images/plus_icon.png" alt="Add a new Show"></button>`;
+	parentCards.appendChild(card);
+    const sxcard = document.createElement("div");
+sxcard.classList.add("scard");
+sxcard.innerHTML = `<button class="venueadd_button" id="venueadd_button"><img class="add-venue-img" id="add-venue-img" src="../images/plus_icon.png" alt="Add a new Show"></button>`;
 // Add the card element to the card container
-parentCard.appendChild(vcard);
+parentCards.appendChild(sxcard);
     console.log("not working bytch")
 
 
