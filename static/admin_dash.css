@@ -56,9 +56,10 @@
 
 .vcard h1 {
 	margin-top: 0;
+    width: 100%;
 }
 
-.shows {
+.vcard {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
