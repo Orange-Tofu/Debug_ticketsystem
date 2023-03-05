@@ -21,7 +21,6 @@ addChildBtn.addEventListener('click', () => {
 	// Add the card data to the element
 	vcard.innerHTML = `
 		<h1>Venue x</h1>
-        <button onclick='createShows()'>Click me</button>
 	`;
     btnCard.parentNode.insertBefore(vcard, btnCard);
 });

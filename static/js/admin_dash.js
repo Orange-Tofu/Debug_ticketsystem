@@ -42,20 +42,18 @@ function createShows(x) {
     const showsContainer = document.getElementById("shows-container"+x);
 
     const numCardsToPrint = venueData[x].cards.length;
-    console.log(venueData[x].cards.length);
 
     for (let i = 0; i < numCardsToPrint; i++) {
         // Create a new card element
         const card = document.createElement("div");
         card.classList.add("card");
         card.classList.add("card"+i);
-        card.setAttribute('id', 'card-cont'+i);
+        card.setAttribute('id', 'card-cont');
         console.log(card)
 
         // Add the card data to the element
         const cardDataIndex = i; // Use modulo to cycle through the data
         const cardDataItem = venueData[x].cards[cardDataIndex];
-        console.log(cardDataItem);
         card.innerHTML = `
             <h2>${cardDataItem.name}</h2>
             <p>Timings: ${cardDataItem.time}</p>
