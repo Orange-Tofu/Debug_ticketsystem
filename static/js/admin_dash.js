@@ -1,4 +1,4 @@
-//Venue creation
+var btn = 0;
 const venuesContainer = document.getElementById("venues-container");
 
 const venueData = [
@@ -12,8 +12,8 @@ for (let i = 0; i < numVenueToPrint; i++) {
 	// Create a new card element
 	const vcard = document.createElement("div");
 	vcard.classList.add("vcard");
-	vcard.classList.add("vcard"+i);
-    vcard.setAttribute('id', 'shows-container'+i);
+	vcard.classList.add("vcard"+(i+1));
+    vcard.setAttribute('id', 'shows-container'+(i+1));
     console.log(vcard)
 	// Add the card data to the element
 	const vcardDataIndex = i % venueData.length; // Use modulo to cycle through the data
@@ -39,7 +39,7 @@ venuesContainer.appendChild(vcard);
 
 function createShows(x) {
     //Show creation
-    const showsContainer = document.getElementById("shows-container"+x);
+    const showsContainer = document.getElementById("shows-container"+(x+1));
 
     const numCardsToPrint = venueData[x].cards.length;
 
@@ -47,7 +47,7 @@ function createShows(x) {
         // Create a new card element
         const card = document.createElement("div");
         card.classList.add("card");
-        card.classList.add("card"+i);
+        card.classList.add("card"+(i+1));
         card.setAttribute('id', 'card-cont');
         console.log(card)
 
@@ -63,10 +63,53 @@ function createShows(x) {
         // Add the card element to the card container
         showsContainer.appendChild(card);
     }
+    btn = btn + 1;
     const card = document.createElement("div");
     card.classList.add("card");
-    card.innerHTML = `<button class="showadd_button" id="showadd_button"><img class="add-show-img" id="add-show-img" src="../images/plus_icon.png" alt="Add a new Show"></button>`;
-    card.setAttribute('id', 'plusBtnshow');
+    card.innerHTML = `<button class="showadd_button" onclick="addShow(this)" id="plusBtnshow${btn}"><img class="add-show-img" id="add-show-img" src="../images/plus_icon.png" alt="Add a new Show"></button>`;
+    // card.setAttribute('id',`plusBtnshow${btn}`);
     // Add the card element to the card container
     showsContainer.appendChild(card);
 }
+
+
+
+
+
+
+//Adding new venues
+const myDiv = document.getElementById('venueadd_button');
+  // Add a click event listener to the div
+  myDiv.addEventListener('click', function() {
+    
+});
+myDiv.classList.remove('vvcard');
+myDiv.style = '';
+
+
+
+const parentCard = document.querySelector('#venues-container');
+const addChildBtn = document.querySelector('#venueadd_button');
+const btnCard = document.querySelector('#plusBtnvenue');
+
+addChildBtn.addEventListener('click', () => {
+    const vcard = document.createElement("div");
+	vcard.classList.add("vcard");
+
+	// Add the card data to the element
+	vcard.innerHTML = `
+		<h1>Venue x</h1>
+	`;
+    const showsContainer = document.getElementById("shows-container"+(numVenueToPrint));
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.innerHTML = `<button class="showadd_button" onclick="addShow(this)" id="plusBtnshow${btn}"><img class="add-show-img" id="add-show-img" src="../images/plus_icon.png" alt="Add a new Show"></button>`;
+    // card.setAttribute('id',`plusBtnshow${btn}`);
+    // Add the card element to the card container
+    console.log(card);
+    showsContainer.appendChild(card);
+
+
+
+    btnCard.parentNode.insertBefore(vcard, btnCard);
+});
