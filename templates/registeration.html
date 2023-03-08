@@ -9,14 +9,14 @@
 </head>
 <body>
     <h3>Register</h3>
-    <form>
+    <form method="POST" action="/registeration">
         <label for="username">Username</label>
-        <input type="text" placeholder="Email or Phone" id="username">
+        <input type="text" placeholder="Email or Phone" id="username" name="username">
         <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="password">
+        <input type="password" placeholder="Password" id="userpassword" name="userpassword">
         <label for="password">Confirm Password</label>
-        <input type="password" placeholder="Password" id="password">
-        <button>Register</button>
+        <input type="password" placeholder="Password" id="userpasswordconf" name="userpasswordconf">
+        <button type="submit" formmethod="post">Register</button>
     </form>
 </body>
 </html>

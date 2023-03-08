@@ -49,9 +49,8 @@ input{
     color: #202020;
 }
 button{
-    align-content: center;
     margin-top: 50px;
-    width: 100%;
+    width: 50%;
     background-color: #ffffff;
     color: #202020;
     padding: 15px 0;
