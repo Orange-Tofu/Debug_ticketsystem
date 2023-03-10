@@ -30,24 +30,22 @@
 
     
     <main class="main page__main">
-        <form class="card-form">
+        <form class="card-form" method="POST" action="/newshow">
             <div class="card-form__main-content">
             <h2 class="card-form__title">Creating a new Show</h2>
             <label class="card-form__label" for="show_name">Show Name</label>
-            <input class="card-form__input" id="show_name" name="show_name" placeholder="Enter the show name" type="text"/>
+            <input class="card-form__input" id="show_name" placeholder="Enter the show name" type="text" name="new_showname" />
             <label class="card-form__label" for="show_rat">Ratings</label>
-            <input class="card-form__input" id="show_rat" name="show_rat" placeholder="Enter ratings out of 5" type="number" min="0" max="5"/>
+            <input class="card-form__input" id="show_rat" placeholder="Enter ratings out of 5" type="number" min="0" max="5" name="new_showratings"/>
             <label class="card-form__label" for="show_time_start">Start Timings</label>
-            <input class="card-form__input" id="show_time_start" name="show_time_start" placeholder="Enter the show time" type="time"/>
-            <label class="card-form__label" for="show_time_end">End Timings</label>
-            <input class="card-form__input" id="show_time_end" name="show_time_end" placeholder="Enter the end time" type="time"/>
+            <input class="card-form__input" id="show_time_start" placeholder="Enter the show time" type="time" name="new_showtime" />
             <label class="card-form__label" for="show_tag">Tags</label>
-            <input class="card-form__input" id="show_tag" name="show_tag" placeholder="Enter tags" type="text"/>
+            <input class="card-form__input" id="show_tag" placeholder="Enter tags" type="text" name="new_showtag" />
             <label class="card-form__label" for="price">Price</label>
-            <input class="card-form__input" id="price" name="price" placeholder="Enter value" type="number" min="100"/>
+            <input class="card-form__input" id="price" placeholder="Enter value" type="number" min="100" name="new_showprice" />
             </div>
             <div class="card-form__footer">
-            <button class="primary-btn" type="submit">Save</button>
+            <button class="primary-btn" type="submit" formmethod="post">Save</button>
             </div>
         </form>
     </main>

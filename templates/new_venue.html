@@ -30,20 +30,20 @@
 
     
     <main class="main page__main">
-        <form class="card-form">
+        <form class="card-form" method="POST" action="/newvenue">
             <div class="card-form__main-content">
             <h2 class="card-form__title">Creating a new Venue</h2>
             <label class="card-form__label" for="venue_name">Venue Name</label>
-            <input class="card-form__input" id="venue_name" name="venue_name" placeholder="Enter the venue name" type="text"/>
+            <input class="card-form__input" id="venue_name" name="new_venuename" placeholder="Enter the venue name" type="text"/>
             <label class="card-form__label" for="venue_place">Place</label>
-            <input class="card-form__input" id="venue_place" name="venue_place" placeholder="Enter the place name" type="text"/>
+            <input class="card-form__input" id="venue_place" name="new_venueplace" placeholder="Enter the place name" type="text"/>
             <label class="card-form__label" for="venue_loc">Location</label>
-            <input class="card-form__input" id="venue_loc" name="venue_loc" placeholder="Enter the location" type="text"/>
+            <input class="card-form__input" id="venue_loc" name="new_venueloc" placeholder="Enter the location" type="text"/>
             <label class="card-form__label" for="venue_cap">Capacity</label>
-            <input class="card-form__input" id="venue_cap" name="venue_cap" placeholder="Enter the maximum capacity" type="number" min="0" />
+            <input class="card-form__input" id="venue_cap" name="new_venuecap" placeholder="Enter the maximum capacity" type="number" min="0" />
             </div>
             <div class="card-form__footer">
-            <button class="primary-btn" type="submit">Save</button>
+            <button class="primary-btn" type="submit" formmethod="post">Save</button>
             </div>
         </form>
     </main>
