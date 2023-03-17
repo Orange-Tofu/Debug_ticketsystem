@@ -10,10 +10,10 @@
 <body>
     <h3>Admin Login</h3>
     <form>
-        <label for="username">Username</label>
-        <input type="text" placeholder="Email or Phone" id="username">
-        <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="password">
+        {{ form.adminname.label }}
+        {{ form.adminname(type="text", placeholder="Enter admin name", id="adminname") }}
+        {{ form.password.label }}
+        {{ form.password(type="password", placeholder="Enter password", id="password") }}
         <button>Log In</button>
     </form>
 </body>
