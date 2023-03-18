@@ -33,19 +33,29 @@
 
     
     <main class="main page__main">
-        <form class="card-form">
+        <form class="card-form", method="POST" action="/ticketbooking">
             <div class="card-form__main-content">
             <h2 class="card-form__title">Booking Show2 venue-2</h2>
             <p class="card-form__desc">Please enter the number of tickets and confirm booking.</p>
             <p class="seat_tot">Total number of seats: </p>
             <p class="seat_ava">Available Seats: </p>
             <p class="time"> Timings:</p>
-            <label class="card-form__label" for="num_seats">Number</label>
+            {{ form.hidden_tag() }}
+            {{ form.numseats.label(class="card-form__label") }}
+            {{ form.numseats(class="card-form__input", type="number", placeholder="Enter the number of seats", id="num_seats", min="0", onkeyup="tot_price()") }}
+            {{ form.price.label(class="card-form__label") }}
+            {{ form.price(class="card-form__input", type="number", id="price", value="300", readonly="True") }}
+            {{ form.total.label(class="card-form__label") }}
+            {{ form.total(class="card-form__input", type="number", id="total", value="0", readonly="True") }}
+            
+            
+
+            <!-- <label class="card-form__label" for="num_seats">Number</label>
             <input class="card-form__input" id="num_seats" name="num_seats" placeholder="Enter the number of seats" type="number" min="0" onkeyup="tot_price()"/>
             <label class="card-form__label" for="price">Price</label>
             <input class="card-form__input" id="price" name="price" value="300" type="number" readonly/>
             <label class="card-form__label" for="total">Total</label>
-            <input class="card-form__input" id="total" name="total" type="number" value="0" readonly/>
+            <input class="card-form__input" id="total" name="total" type="number" value="0" readonly/> -->
             </div>
             <div class="card-form__footer">
             <button class="primary-btn" type="submit">Confirm Booking</button>

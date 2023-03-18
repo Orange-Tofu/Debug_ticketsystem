@@ -9,13 +9,14 @@
 </head>
 <body>
     <h3>User Login</h3>
-    <form>
-        <label for="userid">User ID</label>
-        <input type="text" placeholder="Enter your User Id" id="user_id" name="user_id">
-        <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="user_password" name="user_password">
+    <form method="POST" action="/userlogin">
+        {{ form.hidden_tag() }}
+        {{ form.username.label }}
+        {{ form.username(type="text", placeholder="Enter user name", id="user_name") }}
+        {{ form.password.label }}
+        {{ form.password(type="password", placeholder="Enter password", id="user_password") }}
         <div class="buttons">
-            <button>Log In</button>
+            <button type="submit" formmethod="post">Log In</button>
             <button>Register</button>
         </div>
     </form>

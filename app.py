@@ -2,24 +2,34 @@ from flask import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import *
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required, UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__, template_folder='templates')
 app.secret_key = 'super secret key'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ticket_show.db'
-
+app.config['TESTING'] = False
 db = SQLAlchemy(app)
 
-login = LoginManager(app)
-login.login_view = 'login'
-login.init_app(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.session_protection = 'strong'
+login_manager.login_view = 'login'
+
+
+#Login Manager----------------------------------------------------------------
+
+@login_manager.user_loader
+def load_user(user_id):
+    # return the user object for the user with the given user_id
+    return Users.query.get(int(user_id))
 
 
 #Models--------------------------------
 
-class Admins(db.Model, UserMixin):
+class Admins(db.Model):
     admin_id = db.Column(db.Integer(), primary_key = True)
     admin_name = db.Column(db.String(30), nullable = False)
     password = db.Column(db.String(20), nullable = False)
@@ -31,6 +41,9 @@ class Users(db.Model, UserMixin):
     user_id = db.Column(db.Integer(), primary_key = True)
     password = db.Column(db.String(20), nullable = False)
     usr_name = db.Column(db.String(30), nullable = False)
+
+    def get_id(self):
+           return (self.user_id)
 
     def __repr__(self):
         return "<User %r>" % self.user_id
@@ -70,23 +83,50 @@ class Bookings(db.Model):
         return "<Bookings %r%r%r>" % self.venue_id % self.show_id % self.booking_id
 
 
-#Login Manager----------------------------------------------------------------
 
-@login.user_loader
-def load_user(user_id):
-    # return the user object for the user with the given user_id
-    return User.query.get(int(user_id))
 
 
 
 #Forms----------------------------------------------------------------
 
 class AdminLoginForm(FlaskForm):
-    adminname  = StringField('Admin Name', validators=[DataRequired()])
+    adminname = StringField('Admin Name', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Sign In')
 
 
+class UserLoginForm(FlaskForm):
+    username = StringField('User Name', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+
+
+class UserRegisterationForm(FlaskForm):
+    username = StringField('User Name', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    passwordconf = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password', message='Passwords must match!')])
+
+
+class NewVenueForm(FlaskForm):
+    venuename = StringField('Venue Name', validators=[DataRequired()])
+    venueplace = StringField('Venue Place', validators=[DataRequired()])
+    venueloc = StringField('Venue Location', validators=[DataRequired()])
+    venuecap = StringField('Venue Capacity', validators=[DataRequired()])
+
+
+class NewShowForm(FlaskForm):
+    showname = StringField('Show Name', validators=[DataRequired()])
+    ratings = StringField('Show Rating', validators=[DataRequired()])
+    starttime = StringField('Show Time', validators=[DataRequired()])
+    tags = StringField('Show Tag', validators=[DataRequired()])
+    price = StringField('Show Price', validators=[DataRequired()])
+
+
+class NewTicketBookingForm(FlaskForm):
+    buser_id = db.Column(db.Integer(), db.ForeignKey('users.user_id'))
+    bvenue_id = db.Column(db.Integer(), db.ForeignKey('venues.venue_id'))
+    bshow_id = db.Column(db.Integer(), db.ForeignKey('shows.show_id'))
+    numseats = StringField('Number of Tickets', validators=[DataRequired()])
+    price = StringField('Price', validators=[DataRequired()])    
+    total = StringField('Total Price', validators=[DataRequired()])
 
 
 
@@ -99,81 +139,116 @@ def index():
     return render_template("welcome.html")
 
 
+
 @app.route('/adminlogin', methods =["GET", "POST"])
 def adminlogin():
-    if current_user.is_authenticated:
-        return redirect(url_for('admin_dashboard'))
-
     form = AdminLoginForm()
 
     if form.validate_on_submit():
-        user = Users.query.filter_by(admin_name=form.username.data).first()
-        
-        # user.is_active = True
-        if user and user.check_password(form.password.data):
-            login_user(user)
-            flash('Successfully logged in !!', 'success')
+        return redirect(url_for('registeration'))
 
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('feed'))
-        else:
-            flash('Login Unsuccessful !!', 'danger')
-            flash('Invalid username or password !!')
+
     return render_template('admin_login.html', title='Login', form=form)
 
 
+
+@app.route('/userlogin', methods =["GET", "POST"])
+def userlogin():
+    form = UserLoginForm()
+
+    if form.validate_on_submit():
+        user = Users.query.filter_by(usr_name=form.username.data).first()
+        if user:
+            if check_password_hash(user.password, form.password.data):
+                login_user(user)
+                return redirect(url_for('userdashboard'))
+            else:
+                return '<h1>Invalid Password</h1>'
+    return render_template('user_login.html', title='Login', form=form)
 
 
 
 @app.route('/registeration', methods =["GET", "POST"])
 def user_registeration():
-    if request.method == 'POST' :
-        user_name = request.form.get('username')
-        user_password = request.form.get('userpassword')
-        user_passwordconf = request.form.get('userpasswordconf')
-        if user_password == user_passwordconf:
-            reg = Users(password=user_password, usr_name=user_name)
-            db.session.add(reg)
-            db.session.commit()
-            print(user_name, user_password)
-            return "user registered"
-    return render_template('registeration.html')
+    form = UserRegisterationForm()
+
+    if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password.data)
+        user = Users(password=hashed_password, usr_name=form.username.data)
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)
+        return redirect(url_for('userlogin'))
+    return render_template('registeration.html', title='Registeration', form=form)
+
+
+
+@app.route('/userdashboard', methods =["GET", "POST"])
+@login_required
+def userdashboard():
+    return render_template('user_dashboard.html')
+
+
+@app.route('/admindashboard', methods =["GET", "POST"])
+@login_required
+def admindashboard():
+    return render_template('admin_dashboard.html')
+
+
+
+@app.route('/ticketbooking', methods =["GET", "POST"])
+def ticketbooking():
+    form = NewTicketBookingForm()
+
+    if form.validate_on_submit():
+        booking = Bookings(num_tickets=form.numseats.data, total_price=form.total.data)
+        db.session.add(booking)
+        db.session.commit()
+        return redirect(url_for('userdashboard'))
+    return render_template('ticket_book.html', title='Ticket Booking', form=form)
+
+
+
+@app.route('/userbookings', methods =["GET", "POST"])
+@login_required
+def userbookings():
+    return render_template('user_bookings.html')
 
 
 
 @app.route('/newshow', methods =["GET", "POST"])
+@login_required
 def new_show():
-    if request.method == 'POST' :
-        new_showname = request.form.get('new_showname')
-        new_showratings = request.form.get('new_showratings')
-        new_showtime = request.form.get('new_showtime')
-        new_showtag = request.form.get('new_showtag')
-        new_showprice = request.form.get('new_showprice')
-        show = Shows(show_name=new_showname, show_time=new_showtime, show_tag=new_showtag, show_rating=new_showratings, show_price=new_showprice, svenue_id=1)
+    form = NewShowForm()
+
+    if form.validate_on_submit():
+        show = Shows(show_name=form.showname.data, show_time=form.starttime.data, show_tag=form.tags.data, show_rating=form.ratings.data, show_price=form.price.data)
         db.session.add(show)
         db.session.commit()
-        print(new_showname, new_showratings, new_showtime, new_showtag, new_showprice)
-        return "show registered"
-    return render_template('new_show.html')
+        return redirect(url_for('admindashboard'))
+    return render_template('new_show.html', title='New Show', form=form)
 
 
 
 @app.route('/newvenue', methods =["GET", "POST"])
+@login_required
 def new_venue():
-    if request.method == 'POST' :
-        new_venuename = request.form.get('new_venuename')
-        new_venueloc = request.form.get('new_venueloc')
-        new_venueplace = request.form.get('new_venueplace')
-        new_venuecap = request.form.get('new_venuecap')
-        venue = Venues(venue_name=new_venuename, venue_place=new_venueplace, venue_location=new_venueloc, venue_capacity=new_venuecap)
+    form = NewVenueForm()
+
+    if form.validate_on_submit():
+        venue = Venues(venue_name=form.venuename.data, venue_place=form.venueplace.data, venue_location=form.venueloc.data, venue_capacity=form.venuecap.data)
         db.session.add(venue)
         db.session.commit()
-        print(new_venuename, new_venueloc, new_venueplace, new_venuecap)
-        return "venue registered"
-    return render_template('new_venue.html')
+        return redirect(url_for('admindashboard'))
+    return render_template('new_venue.html', title='New Venue', form=form)
 
 
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 
 

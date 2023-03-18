@@ -9,12 +9,13 @@
 </head>
 <body>
     <h3>Admin Login</h3>
-    <form>
+    <form method="POST" action="/adminlogin">
+        {{ form.hidden_tag() }}
         {{ form.adminname.label }}
         {{ form.adminname(type="text", placeholder="Enter admin name", id="adminname") }}
         {{ form.password.label }}
         {{ form.password(type="password", placeholder="Enter password", id="password") }}
-        <button>Log In</button>
+        <button type="submit" formmethod="post">Log In</button>
     </form>
 </body>
 </html>

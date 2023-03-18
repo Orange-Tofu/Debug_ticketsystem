@@ -10,12 +10,13 @@
 <body>
     <h3>Register</h3>
     <form method="POST" action="/registeration">
-        <label for="username">Username</label>
-        <input type="text" placeholder="Email or Phone" id="username" name="username">
-        <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="userpassword" name="userpassword">
-        <label for="password">Confirm Password</label>
-        <input type="password" placeholder="Password" id="userpasswordconf" name="userpasswordconf">
+        {{ form.hidden_tag() }}
+        {{ form.username.label }}
+        {{ form.username(type="text", placeholder="Enter user name", id="user_name") }}
+        {{ form.password.label }}
+        {{ form.password(type="password", placeholder="Enter password", id="userpassword") }}
+        {{ form.passwordconf.label }}
+        {{ form.passwordconf(type="password", placeholder="Enter password", id="userpasswordconf") }}
         <button type="submit" formmethod="post">Register</button>
     </form>
 </body>
