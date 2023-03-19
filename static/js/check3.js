@@ -8,6 +8,9 @@ const venueData = [
 ];
 const numVenueToPrint = venueData.length;
 
+// --- Global variable keeping track of number of venues---
+var venues = venueData.length;
+
 for (let i = 0; i < numVenueToPrint; i++) {
 	// Create a new card element
 	const vcard = document.createElement("div");
@@ -72,24 +75,25 @@ function createShows(x) {
     showsContainer.appendChild(card);
 }
 
+// --- Function responsible for changing the page ---
 function addShow(element) {
     let cookie = element.id;
     window.location.href = 'newshow';
     console.log(element.id);
-    sessionStorage.setItem('btn_id', cookie);
+    sessionStorage.setItem('show_id', cookie);
 }
 
 
 
 
 //Adding new venues
-const myDiv = document.getElementById('venueadd_button');
-  // Add a click event listener to the div
-  myDiv.addEventListener('click', function() {
+// const myDiv = document.getElementById('venueadd_button');
+//   // Add a click event listener to the div
+//   myDiv.addEventListener('click', function() {
     
-});
-myDiv.classList.remove('vvcard');
-myDiv.style = '';
+// });
+// myDiv.classList.remove('vvcard');
+// myDiv.style = '';
 
 
 
@@ -98,23 +102,28 @@ const addChildBtn = document.querySelector('#venueadd_button');
 const btnCard = document.querySelector('#plusBtnvenue');
 
 addChildBtn.addEventListener('click', () => {
-    const vcard = document.createElement("div");
-	vcard.classList.add("vcard");
+    // const vcard = document.createElement("div");
+	// vcard.classList.add("vcard");
 
-	// Add the card data to the element
-	vcard.innerHTML = `
-		<h1>Venue x</h1>
-	`;
-    const showsContainer = document.getElementById("shows-container"+(numVenueToPrint));
-    const card = document.createElement("div");
-    card.classList.add("card");
-    card.innerHTML = `<button class="showadd_button" onclick="addShow(this)" id="plusBtnshow${btn} href=""{{ url_for('newvenue') " ><img class="add-show-img" id="add-show-img" src="static/images/plus_icon.png" alt="Add a new Show"></button>`;
-    // card.setAttribute('id',`plusBtnshow${btn}`);
-    // Add the card element to the card container
-    console.log(card);
-    showsContainer.appendChild(card);
+	// // Add the card data to the element
+	// vcard.innerHTML = `
+	// 	<h1>Venue x</h1>
+	// `;
+
+    // btnCard.parentNode.insertBefore(vcard, btnCard);
 
 
-
-    btnCard.parentNode.insertBefore(vcard, btnCard);
+    // ----The code Commented below is useless. Can safely delete----
+    // const showsContainer = document.getElementById("shows-container"+(numVenueToPrint));
+    // const card = document.createElement("div");
+    // card.classList.add("card");
+    // card.innerHTML = `<button class="showadd_button" onclick="addShow(this)" id="plusBtnshow${btn} href=""{{ url_for('newvenue') " ><img class="add-show-img" id="add-show-img" src="static/images/plus_icon.png" alt="Add a new Show"></button>`;
+    // // card.setAttribute('id',`plusBtnshow${btn}`);
+    // // Add the card element to the card container
+    // console.log(card);
+    // showsContainer.appendChild(card);
+    
+    // ---Driver code---
+    window.location.href = 'newvenue';
+    sessionStorage.setItem('venue_no', venues + 1);
 });

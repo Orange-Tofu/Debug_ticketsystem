@@ -230,7 +230,7 @@ def new_show():
 
 
 @app.route('/newvenue', methods =["GET", "POST"])
-@login_required
+# @login_required
 def new_venue():
     form = NewVenueForm()
 
