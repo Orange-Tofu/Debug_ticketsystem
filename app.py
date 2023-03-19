@@ -216,7 +216,7 @@ def userbookings():
 
 
 @app.route('/newshow', methods =["GET", "POST"])
-@login_required
+# @login_required
 def new_show():
     form = NewShowForm()
 

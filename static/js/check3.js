@@ -72,7 +72,12 @@ function createShows(x) {
     showsContainer.appendChild(card);
 }
 
-
+function addShow(element) {
+    let cookie = element.id;
+    window.location.href = 'newshow';
+    console.log(element.id);
+    sessionStorage.setItem('btn_id', cookie);
+}
 
 
 
