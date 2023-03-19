@@ -148,7 +148,7 @@ def adminlogin():
         return redirect(url_for('registeration'))
 
 
-    return render_template('admin_login.html', title='Login', form=form)
+    return render_template('admin_login.html', title='Admin Login', form=form)
 
 
 
@@ -164,7 +164,7 @@ def userlogin():
                 return redirect(url_for('userdashboard'))
             else:
                 return '<h1>Invalid Password</h1>'
-    return render_template('user_login.html', title='Login', form=form)
+    return render_template('user_login.html', title='User Login', form=form)
 
 
 
@@ -184,15 +184,14 @@ def user_registeration():
 
 
 @app.route('/userdashboard', methods =["GET", "POST"])
-@login_required
 def userdashboard():
-    return render_template('user_dashboard.html')
+    return render_template('user_dashboard.html', title='User Dashboard')
+
 
 
 @app.route('/admindashboard', methods =["GET", "POST"])
-@login_required
 def admindashboard():
-    return render_template('admin_dashboard.html')
+    return render_template('admin_dashboard.html', title='Admin Dashboard')
 
 
 

@@ -28,7 +28,7 @@ for (let i = 0; i < numVenueToPrint; i++) {
 }
 const vcard = document.createElement("div");
 vcard.classList.add("vvcard");
-vcard.innerHTML = `<button class="venueadd_button" id="venueadd_button"><img class="add-venue-img" id="add-venue-img" src="static/images/plus_icon.png" alt="Add a new Show"></button>`;
+vcard.innerHTML = `<button class="venueadd_button" id="venueadd_button" href=""{{ url_for('newvenue') }}""><img class="add-venue-img" id="add-venue-img" src="static/images/plus_icon.png" alt="Add a new Show"></button>`;
 vcard.setAttribute('id', 'plusBtnvenue');
 // Add the card element to the card container
 venuesContainer.appendChild(vcard);
@@ -66,7 +66,7 @@ function createShows(x) {
     btn = btn + 1;
     const card = document.createElement("div");
     card.classList.add("card");
-    card.innerHTML = `<button class="showadd_button" onclick="addShow(this)" id="plusBtnshow${btn}"><img class="add-show-img" id="add-show-img" src="static/images/plus_icon.png" alt="Add a new Show"></button>`;
+    card.innerHTML = `<button class="showadd_button" onclick="addShow(this)" id="plusBtnshow${btn}" href=""{{ url_for('newvenue') ><img class="add-show-img" id="add-show-img" src="static/images/plus_icon.png" alt="Add a new Show"></button>`;
     // card.setAttribute('id',`plusBtnshow${btn}`);
     // Add the card element to the card container
     showsContainer.appendChild(card);
@@ -103,7 +103,7 @@ addChildBtn.addEventListener('click', () => {
     const showsContainer = document.getElementById("shows-container"+(numVenueToPrint));
     const card = document.createElement("div");
     card.classList.add("card");
-    card.innerHTML = `<button class="showadd_button" onclick="addShow(this)" id="plusBtnshow${btn}"><img class="add-show-img" id="add-show-img" src="static/images/plus_icon.png" alt="Add a new Show"></button>`;
+    card.innerHTML = `<button class="showadd_button" onclick="addShow(this)" id="plusBtnshow${btn} href=""{{ url_for('newvenue') " ><img class="add-show-img" id="add-show-img" src="static/images/plus_icon.png" alt="Add a new Show"></button>`;
     // card.setAttribute('id',`plusBtnshow${btn}`);
     // Add the card element to the card container
     console.log(card);
