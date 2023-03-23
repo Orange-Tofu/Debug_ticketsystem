@@ -1,11 +1,14 @@
 var btn = 0;
 const venuesContainer = document.getElementById("venues-container");
 
-const venueData = [
-	{ name: "Venue 1",  cards: [ { name: "Show 1", time: 30 }, { name: "Show 2", time: 25 }, { name: "Show 3", time: 40 } ] },
-	{ name: "Venue 2",  cards: [ { name: "Show 4", time: 30 }, { name: "Show 5", time: 25 }, { name: "Show 6", time: 40 } ] },
-	{ name: "Venue 3",  cards: [ { name: "Show 7", time: 30 }, { name: "Show 8", time: 25 }, { name: "Show 9", time: 40 }, { name: "Show 10", time: 25 } ] }
-];
+// const venueData = [
+// 	{ name: "Venue 1",  cards: [ { name: "Show 1", time: 30 }, { name: "Show 2", time: 25 }, { name: "Show 3", time: 40 } ] },
+// 	{ name: "Venue 2",  cards: [ { name: "Show 4", time: 30 }, { name: "Show 5", time: 25 }, { name: "Show 6", time: 40 } ] },
+// 	{ name: "Venue 3",  cards: [ { name: "Show 7", time: 30 }, { name: "Show 8", time: 25 }, { name: "Show 9", time: 40 }, { name: "Show 10", time: 25 } ] }
+// ];
+
+
+var venueData = data;
 const numVenueToPrint = venueData.length;
 
 // --- Global variable keeping track of number of venues---
@@ -69,7 +72,7 @@ function createShows(x) {
     btn = btn + 1;
     const card = document.createElement("div");
     card.classList.add("card");
-    card.innerHTML = `<button class="showadd_button" onclick="addShow(this)" id="plusBtnshow${btn}" href=""{{ url_for('newvenue') ><img class="add-show-img" id="add-show-img" src="static/images/plus_icon.png" alt="Add a new Show"></button>`;
+    card.innerHTML = `<button class="showadd_button" onclick="addShow(this)" id="plusBtnshow${btn}" href=""{{ url_for('newshow') ><img class="add-show-img" id="add-show-img" src="static/images/plus_icon.png" alt="Add a new Show"></button>`;
     // card.setAttribute('id',`plusBtnshow${btn}`);
     // Add the card element to the card container
     showsContainer.appendChild(card);
@@ -86,44 +89,14 @@ function addShow(element) {
 
 
 
-//Adding new venues
-// const myDiv = document.getElementById('venueadd_button');
-//   // Add a click event listener to the div
-//   myDiv.addEventListener('click', function() {
-    
-// });
-// myDiv.classList.remove('vvcard');
-// myDiv.style = '';
-
-
 
 const parentCard = document.querySelector('#venues-container');
 const addChildBtn = document.querySelector('#venueadd_button');
 const btnCard = document.querySelector('#plusBtnvenue');
 
 addChildBtn.addEventListener('click', () => {
-    // const vcard = document.createElement("div");
-	// vcard.classList.add("vcard");
-
-	// // Add the card data to the element
-	// vcard.innerHTML = `
-	// 	<h1>Venue x</h1>
-	// `;
-
-    // btnCard.parentNode.insertBefore(vcard, btnCard);
-
-
-    // ----The code Commented below is useless. Can safely delete----
-    // const showsContainer = document.getElementById("shows-container"+(numVenueToPrint));
-    // const card = document.createElement("div");
-    // card.classList.add("card");
-    // card.innerHTML = `<button class="showadd_button" onclick="addShow(this)" id="plusBtnshow${btn} href=""{{ url_for('newvenue') " ><img class="add-show-img" id="add-show-img" src="static/images/plus_icon.png" alt="Add a new Show"></button>`;
-    // // card.setAttribute('id',`plusBtnshow${btn}`);
-    // // Add the card element to the card container
-    // console.log(card);
-    // showsContainer.appendChild(card);
-    
-    // ---Driver code---
     window.location.href = 'newvenue';
+    venues+=1;
     sessionStorage.setItem('venue_no', venues + 1);
+    console.log(venues);
 });

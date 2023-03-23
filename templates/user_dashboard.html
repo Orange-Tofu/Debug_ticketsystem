@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/user_dash.css">
+{% extends "base.html" %}
+{% block head %}
     <title>User Dashboard</title>
-</head>
-<body>
+{% endblock %}
+
+{% block body %}
+    <link rel="stylesheet" href="../static/user_dash.css">
+    <script>
+        var data = {{ data|tojson }}
+    </script>
+    <script src="../static/js/userdash.js"></script>
+    
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -19,10 +20,10 @@
             <div class="usr">User Dashboard</div>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
+                    <a class="nav-link" href="{{ url_for('logout') }}">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Bookings</a>
+                    <a class="nav-link" href="{{ url_for('userbookings') }}">Bookings</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
@@ -30,17 +31,15 @@
             </ul>
         </div>
     </nav>
-
-    <div class="venues">
-        <h1>Venue 1</h1>
-        <div class="list-shows flex">
-            <div class="shows">
-                <h2>show1</h2>
-                <button>Book</button>
-            </div>
-            
-        </div>
+    <!-- {% for message in get_flashed_messages() %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">  
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %} -->
+    <div class="venues" id="venues-container">
     </div>
 
-</body>
-</html>
+{% endblock %}
+
+<!-- </html> -->

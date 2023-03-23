@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block head %}
-    <title>Venue</title>
+    <title>Venue Update</title>
 {% endblock %}
 
 {% block body %}
@@ -26,9 +26,9 @@
 
     
     <main class="main page__main">
-        <form class="card-form" method="POST" action="/newvenue">
+        <form class="card-form" method="POST" action="/updatevenue">
             <div class="card-form__main-content">
-            <h2 class="card-form__title">Creating a new Venue</h2>
+            <h2 class="card-form__title">Updating the Venue</h2>
             {{ form.hidden_tag() }}
             {{ form.venuename.label(class="card-form__label") }}
             {{ form.venuename(class="card-form__input", type="text", placeholder="Enter the Venue name", id="venue_name") }}
@@ -52,5 +52,4 @@
             </div>
         </form>
     </main>
-
 {% endblock %}
